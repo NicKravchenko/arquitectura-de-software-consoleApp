@@ -1,0 +1,23 @@
+{
+  "showWelcomeScreen": {
+    "welcomeMessage": "Welcome cambiado to registration screen",
+    "actions": [
+      {
+        "quit": "q",
+        "showPersons": "s",
+        "registerPerson": "c"
+      }
+    ]
+  },
+  "showPersons": {
+    "actions": [
+      {
+        "name": "save",
+        "option": "G",
+        "handler": "Program.Save",
+        "succ": "personEntry",
+        "fail": "personEntryFailure"
+      }
+    ]
+  }
+}
