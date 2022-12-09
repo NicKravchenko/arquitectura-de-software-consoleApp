@@ -17,7 +17,7 @@
         {
           "name": "Create",
           "button": "c",
-          "screenName": ""
+          "screenName": "CreatePerson"
         }
       ]
     }
@@ -26,6 +26,29 @@
     "screenName": "showPersons",
     "content": {
       "screenMessage": "Show person screen",
+      "actions": [
+        {
+          "name": "Quit",
+          "button": "q",
+          "screenName": ""
+        },
+        {
+          "name": "Show",
+          "button": "s",
+          "screenName": "showPersons"
+        },
+        {
+          "name": "Create",
+          "button": "c",
+          "screenName": ""
+        }
+      ]
+    }
+  },
+  {
+    "screenName": "CreatePerson",
+    "content": {
+      "screenMessage": "Welcome to create screen",
       "actions": [
         {
           "name": "Quit",
