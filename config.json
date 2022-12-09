@@ -5,9 +5,19 @@
       "screenMessage": "Welcome to registration screen",
       "actions": [
         {
-          "quit": "q",
-          "showPersons": "s",
-          "registerPerson": "c"
+          "name": "Quit",
+          "button": "q",
+          "screenName": ""
+        },
+        {
+          "name": "Show",
+          "button": "s",
+          "screenName": "showPersons"
+        },
+        {
+          "name": "Create",
+          "button": "c",
+          "screenName": ""
         }
       ]
     }
@@ -15,11 +25,22 @@
   {
     "screenName": "showPersons",
     "content": {
-      "screenMessage": "Show persons:",
+      "screenMessage": "Show person screen",
       "actions": [
         {
-          "backToWelcomeScreen": "b",
-          "createPerson": "c"
+          "name": "Quit",
+          "button": "q",
+          "screenName": ""
+        },
+        {
+          "name": "Show",
+          "button": "s",
+          "screenName": "showPersons"
+        },
+        {
+          "name": "Create",
+          "button": "c",
+          "screenName": ""
         }
       ]
     }
