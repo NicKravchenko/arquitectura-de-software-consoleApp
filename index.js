@@ -1,28 +1,24 @@
-console.log("First line");
-
 const Person = require("./person");
 const fs = require("fs");
+const prompt = require("prompt-sync")();
 
 // person = new Person("s", "s", 1);
+var activeScreenName = "showWelcomeScreen";
 
-let rawdata = fs.readFileSync("config.json");
-let config = JSON.parse(rawdata);
+var rawdata = fs.readFileSync("config.json");
+var config = JSON.parse(rawdata);
 
-const readInput = () => {};
+const screenBuilder = (activeScreenName) => {
+  const conf = config;
+  let activeScreen = [];
 
-const readline = require("readline").createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+  conf.forEach((element) => {
+    if (activeScreenName === element.screenName) {
+      activeScreen = element;
+    }
+  });
 
-const showWelcomeScreen = () => {
-  const { showWelcomeScreen } = config;
-  console.log(showWelcomeScreen.welcomeMessage);
-  console.log();
-  console.log(...showWelcomeScreen.actions);
+  console.log(activeScreen);
 };
 
-const input = readline.question("Check input:", (inp) => {
-  console.log(`it'ssss ${inp}!`);
-  readline.close();
-});
+screenBuilder(activeScreenName);

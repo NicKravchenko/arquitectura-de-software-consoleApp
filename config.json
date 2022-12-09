@@ -1,23 +1,27 @@
-{
-  "showWelcomeScreen": {
-    "welcomeMessage": "Welcome cambiado to registration screen",
-    "actions": [
-      {
-        "quit": "q",
-        "showPersons": "s",
-        "registerPerson": "c"
-      }
-    ]
+[
+  {
+    "screenName": "showWelcomeScreen",
+    "content": {
+      "screenMessage": "Welcome to registration screen",
+      "actions": [
+        {
+          "quit": "q",
+          "showPersons": "s",
+          "registerPerson": "c"
+        }
+      ]
+    }
   },
-  "showPersons": {
-    "actions": [
-      {
-        "name": "save",
-        "option": "G",
-        "handler": "Program.Save",
-        "succ": "personEntry",
-        "fail": "personEntryFailure"
-      }
-    ]
+  {
+    "screenName": "showPersons",
+    "content": {
+      "screenMessage": "Show persons:",
+      "actions": [
+        {
+          "backToWelcomeScreen": "b",
+          "createPerson": "c"
+        }
+      ]
+    }
   }
-}
+]

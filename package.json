@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/NicKravchenko/arquitectura-de-software-consoleApp/issues"
   },
-  "homepage": "https://github.com/NicKravchenko/arquitectura-de-software-consoleApp#readme"
+  "homepage": "https://github.com/NicKravchenko/arquitectura-de-software-consoleApp#readme",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
 }
