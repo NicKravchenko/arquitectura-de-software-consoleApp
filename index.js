@@ -9,44 +9,45 @@ var activeScreenName = "showWelcomeScreen";
 var rawdata = fs.readFileSync("config.json");
 var config = JSON.parse(rawdata);
 
-//Screen builder
-const screenBuilder = (activeScreenName) => {
-  const conf = config;
-  let activeScreen = [];
+function create(config) {
+  function screenBuilder(activeScreenName) {
+    const conf = config;
+    let activeScreen = [];
 
-  //Choose active screen
-  conf.forEach((element) => {
-    if (activeScreenName === element.screenName) {
-      activeScreen = element;
-    }
-  });
+    //Choose active screen
+    conf.forEach((element) => {
+      if (activeScreenName === element.screenName) {
+        activeScreen = element;
+      }
+    });
 
-  //Define screen parts
-  const { content } = activeScreen;
-  const { screenMessage } = content;
-  const { actions } = content;
+    //Define screen parts
+    const { content } = activeScreen;
+    const { screenMessage } = content;
+    const { actions } = content;
 
-  console.log(screenMessage);
+    console.log(screenMessage);
 
-  console.log("Go to next screen:");
+    console.log("Go to next screen:");
 
-  //Show possible actions
-  actions.forEach((element) => {
-    console.log(element);
-  });
+    //Show possible actions
+    actions.forEach((element) => {
+      console.log(element);
+    });
 
-  const input = prompt("Screen: ");
+    const input = prompt("Screen: ");
 
-  //Exit if pressed q
-  if (input == "q") return;
+    //Exit if pressed q
+    if (input == "q") return;
 
-  //Call screen
-  actions.forEach((element) => {
-    if (element.button == input) {
-      activeScreenName = element.screenName;
-      screenBuilder(activeScreenName);
-    }
-  });
-};
-
-screenBuilder("showPersons");
+    //Call screen
+    actions.forEach((element) => {
+      if (element.button == input) {
+        activeScreenName = element.screenName;
+        screenBuilder(activeScreenName);
+      }
+    });
+  }
+}
+// screenBuilder("showPersons");
+module.exports = create;
