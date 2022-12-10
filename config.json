@@ -40,7 +40,7 @@
         {
           "name": "Create",
           "button": "c",
-          "screenName": ""
+          "screenName": "CreatePerson"
         }
       ]
     }
