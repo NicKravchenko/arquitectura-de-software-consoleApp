@@ -1,5 +1,38 @@
 [
   {
+    "screenName": "endScreen",
+    "type": "info",
+    "content": {
+      "screenMessage": "Thank you for using this screen builder",
+      "actions": [
+        {
+          "name": "Quit",
+          "button": "q",
+          "screenName": ""
+        }
+      ]
+    }
+  },
+  {
+    "screenName": "show404Screen",
+    "type": "info",
+    "content": {
+      "screenMessage": "This screen was not found",
+      "actions": [
+        {
+          "name": "Back to home screen",
+          "button": "b",
+          "screenName": "showWelcomeScreen"
+        },
+        {
+          "name": "Quit",
+          "button": "q",
+          "screenName": ""
+        }
+      ]
+    }
+  },
+  {
     "screenName": "showWelcomeScreen",
     "type": "info",
     "content": {
