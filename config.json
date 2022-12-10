@@ -6,8 +6,8 @@
       "screenMessage": "Thank you for using this screen builder",
       "actions": [
         {
-          "name": "Quit",
-          "button": "q",
+          "name": "Press any button to exit",
+          "button": "",
           "screenName": ""
         }
       ]

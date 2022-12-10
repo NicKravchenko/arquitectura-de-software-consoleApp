@@ -22,31 +22,15 @@ function showScreenByName(screenToShowName) {
   const screenToShow = getScreenToShow(screenToShowName);
 
   const { type } = screenToShow;
-  console.log("Im in show screen by name");
-  // switch (type) {
-  //   case "info":
-  //     showInfoScreen(screenToShow);
-  //   case "get":
-  //     showGetScreen(screenToShow);
-  // }
+
   if (type === "info") {
     showInfoScreen(screenToShow);
+    return;
   }
   if (type === "get") {
     showGetScreen(screenToShow);
+    return;
   }
-}
-
-function showInfoScreen(screenToShow) {
-  //Define screen parts
-  let nextScreenToShowName = "";
-  const { content } = screenToShow;
-  const { screenMessage } = content;
-  const { actions } = content;
-
-  console.log(screenMessage);
-
-  transferToScreen(actions);
 }
 
 function transferToScreen(actions) {
@@ -61,7 +45,7 @@ function transferToScreen(actions) {
 
   //Exit if pressed q
   if (input == "q") {
-    console.log("q pressed");
+    showScreenByName("endScreen");
     process.abort();
     return;
   } else {
@@ -70,11 +54,25 @@ function transferToScreen(actions) {
       if (element.button === input) {
         nextScreenToShowName = element.screenName;
         showScreenByName(nextScreenToShowName);
+        return;
       } else {
         showScreenByName("show404Screen");
+        return;
       }
     });
   }
+}
+
+function showInfoScreen(screenToShow) {
+  //Define screen parts
+  let nextScreenToShowName = "";
+  const { content } = screenToShow;
+  const { screenMessage } = content;
+  const { actions } = content;
+
+  console.log(screenMessage);
+
+  transferToScreen(actions);
 }
 
 function showGetScreen(screenToShow) {
