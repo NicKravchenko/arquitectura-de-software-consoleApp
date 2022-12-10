@@ -1,52 +1,45 @@
 [
   {
     "screenName": "showWelcomeScreen",
+    "type": "info",
     "content": {
       "screenMessage": "Welcome to registration screen",
       "actions": [
         {
-          "name": "Quit",
-          "button": "q",
-          "screenName": ""
-        },
-        {
-          "name": "Show",
+          "name": "Show all registers",
           "button": "s",
-          "screenName": "showPersons"
+          "screenName": "showRegisters"
         },
         {
           "name": "Create",
           "button": "c",
           "screenName": "CreatePerson"
+        },
+        {
+          "name": "Quit",
+          "button": "q",
+          "screenName": ""
         }
       ]
     }
   },
   {
-    "screenName": "showPersons",
+    "screenName": "showRegisters",
+    "type": "get",
     "content": {
-      "screenMessage": "Show person screen",
+      "screenMessage": "Show registers:",
       "actions": [
         {
-          "name": "Quit",
-          "button": "q",
-          "screenName": ""
-        },
-        {
-          "name": "Show",
-          "button": "s",
-          "screenName": "showPersons"
-        },
-        {
-          "name": "Create",
-          "button": "c",
-          "screenName": "CreatePerson"
+          "name": "Back",
+          "button": "b",
+          "screenName": "showWelcomeScreen"
         }
       ]
     }
   },
   {
-    "screenName": "CreatePerson",
+    "screenName": "modifyRegister",
+    "type": "crud",
     "content": {
       "screenMessage": "Welcome to create screen",
       "actions": [

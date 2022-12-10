@@ -3,7 +3,9 @@ const prompt = require("prompt-sync")();
 var rawdata = fs.readFileSync(`${__dirname}/config.json`);
 var config = JSON.parse(rawdata);
 
-module.exports = function screenBuilder(activeScreenName) {
+function buildScreenByType(screenToBuild) {}
+
+function buildInfoScreen(activeScreenName) {
   const conf = config;
   let activeScreen = [];
 
@@ -37,7 +39,11 @@ module.exports = function screenBuilder(activeScreenName) {
   actions.forEach((element) => {
     if (element.button == input) {
       activeScreenName = element.screenName;
-      screenBuilder(activeScreenName);
+      buildInfoScreen(activeScreenName);
     }
   });
+}
+
+module.exports = function screenBuilder(activeScreenName) {
+  buildInfoScreen(activeScreenName);
 };
