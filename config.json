@@ -66,6 +66,11 @@
           "name": "Back",
           "button": "b",
           "screenName": "showWelcomeScreen"
+        },
+        {
+          "name": "Quit",
+          "button": "q",
+          "screenName": ""
         }
       ]
     }
