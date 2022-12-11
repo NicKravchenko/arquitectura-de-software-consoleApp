@@ -64,7 +64,7 @@ function transferToScreen(actions, content) {
 
   const input = prompt("Screen: ");
 
-  if (["c", "r", "u", "d"].includes(input[0])) {
+  if (["c", "r", "u", "d"].includes(input)) {
     crudManager(input, content);
   }
 
@@ -130,17 +130,22 @@ function crudManager(input, content) {
   const { atribute } = content;
   const { structure } = content;
   var rawdataReg = fs.readFileSync(registersPath);
-  var registers = JSON.parse(rawdataReg);
-  console.log("Im heeerrr");
+
+  try {
+    registers = JSON.parse(rawdataReg);
+  } catch (error) {
+    console.log("Check if register.json exists and configured.");
+  }
+
   let object = { _id: 0, ...structure };
 
   if ((input = "c")) {
     Object.keys(object).forEach((element) => {
-      let value = prompt(`my ${element} is: `);
+      let value = prompt(`${element} is: `);
       object[element] = value;
     });
   }
-  console.log(object);
+  // console.log(object);
   registers[atribute].push(object);
 
   var jsonContent = JSON.stringify(registers);
@@ -156,7 +161,8 @@ function crudManager(input, content) {
   // const asdasd = prompt("WOWOW: ");
 }
 
-showScreenByName("crudPerson");
+// showScreenByName("crudPerson");
+showScreenByName("showWelcomeScreen");
 
 module.exports = function screenBuilder(activeScreenName) {
   showScreenByName(activeScreenName);
