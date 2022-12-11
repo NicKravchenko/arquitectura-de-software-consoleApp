@@ -20,6 +20,7 @@ function getScreenToShow(screenToShowName) {
 
 function showScreenByName(screenToShowName) {
   const screenToShow = getScreenToShow(screenToShowName);
+  console.log("\033[2J");
 
   const { type } = screenToShow;
 
@@ -34,32 +35,41 @@ function showScreenByName(screenToShowName) {
 }
 
 function transferToScreen(actions) {
+  let screenFound = false;
+
   console.log("Go to next screen:");
 
   //Show possible actions
   actions.forEach((element) => {
     console.log(element);
   });
-
   const input = prompt("Screen: ");
 
   //Exit if pressed q
   if (input == "q") {
-    showScreenByName("endScreen");
-    process.abort();
+    process.on("exit", function (code) {
+      showScreenByName("endScreen");
+
+      return console.log(`Process to exit with code ${code}`);
+    });
     return;
   } else {
     //Call screen
     actions.forEach((element) => {
-      if (element.button === input) {
+      console.log(element);
+
+      if (element.button == input) {
         nextScreenToShowName = element.screenName;
+        console.log(nextScreenToShowName);
         showScreenByName(nextScreenToShowName);
-        return;
-      } else {
-        showScreenByName("show404Screen");
+        screenFound = true;
         return;
       }
     });
+    if (!screenFound) {
+      showScreenByName("show404Screen");
+      return;
+    }
   }
 }
 
@@ -87,8 +97,8 @@ function showGetScreen(screenToShow) {
   transferToScreen(actions);
 }
 
-showScreenByName("showWelcomeScreen");
+// showScreenByName("showWelcomeScreen");
 
-// module.exports = function screenBuilder(activeScreenName) {
-//   showScreenByName(activeScreenName);
-// };
+module.exports = function screenBuilder(activeScreenName) {
+  showScreenByName(activeScreenName);
+};
