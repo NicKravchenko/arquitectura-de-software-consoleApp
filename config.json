@@ -79,12 +79,13 @@
     "screenName": "crudPerson",
     "type": "crud",
     "content": {
-      "screenMessage": "Welcome to create screen",
+      "screenMessage": "CRUD person screen",
       "atribute": "person",
       "structure": {
         "_id": 0,
         "name": "name",
-        "age": "age"
+        "age": "age",
+        "asd": "s"
       },
       "actions": [
         {

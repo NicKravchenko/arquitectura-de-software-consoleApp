@@ -4,8 +4,7 @@ const prompt = require("prompt-sync")();
 var rawdataConf = fs.readFileSync(`${__dirname}/config.json`);
 var config = JSON.parse(rawdataConf);
 
-var rawdataReg = fs.readFileSync(`${__dirname}/config.json`);
-var registers = JSON.parse(rawdataReg);
+const registersPath = `${__dirname}/registers.json`;
 
 function getScreenToShow(screenToShowName) {
   const conf = config;
@@ -130,20 +129,31 @@ function showCrudScreen(screenToShow) {
 function crudManager(input, content) {
   const { atribute } = content;
   const { structure } = content;
-
+  var rawdataReg = fs.readFileSync(registersPath);
+  var registers = JSON.parse(rawdataReg);
+  console.log("Im heeerrr");
   let object = { _id: 0, ...structure };
 
-  console.log(object);
   if ((input = "c")) {
     Object.keys(object).forEach((element) => {
       let value = prompt(`my ${element} is: `);
-      console.log(element);
       object[element] = value;
     });
   }
   console.log(object);
+  registers[atribute].push(object);
 
-  const asdasd = prompt("WOWOW: ");
+  var jsonContent = JSON.stringify(registers);
+  console.log(jsonContent);
+
+  fs.writeFileSync(registersPath, jsonContent, "utf8", function (err) {
+    if (err) {
+      console.log("An error occured while writing JSON Object to File.");
+      return console.log(err);
+    }
+    console.log("JSON file has been saved.");
+  });
+  // const asdasd = prompt("WOWOW: ");
 }
 
 showScreenByName("crudPerson");
