@@ -1,11 +1,1 @@
-{
-  "person": [
-    { "_id": 0, "name": "asdf", "age": "qwe", "asd": "ss" },
-    { "_id": 1, "name": "asdf", "age": "rrer", "asd": "e" },
-    { "_id": 2, "name": "Nik", "age": "Kr", "asd": "23" },
-    { "_id": 3, "name": "asdf", "age": "rre", "asd": "d" },
-    { "_id": 4, "name": "Omy ", "age": "Nun", "asd": "23" },
-    { "_id": 5, "name": "Stev", "age": "Mart", "asd": "21" },
-    { "_id": 6, "name": "Stiven" }
-  ]
-}
+{}
