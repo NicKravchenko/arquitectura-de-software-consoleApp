@@ -61,11 +61,12 @@ function transferToScreen(actions, content) {
   let screenFound = false;
 
   showOptions(actions);
-
+  console.log(actions[0].button);
   const input = prompt("Screen: ");
 
   if (["c", "r", "u", "d"].includes(input)) {
     crudManager(input, content);
+    return;
   }
 
   //Exit if pressed q
@@ -129,7 +130,10 @@ function showCrudScreen(screenToShow) {
 function crudManager(input, content) {
   const { atribute } = content;
   const { structure } = content;
+  const { actions } = content;
+
   var rawdataReg = fs.readFileSync(registersPath);
+  let id = -1;
 
   try {
     registers = JSON.parse(rawdataReg);
@@ -139,19 +143,28 @@ function crudManager(input, content) {
 
   let object = { _id: 0, ...structure };
 
+  registers[atribute].forEach((element) => {
+    if (element._id + 1 > id) {
+      id = element._id + 1;
+    }
+  });
+
   // function createRegister(input, object, element, registers, atribute) {}
   //create logic
   if (input === "c") {
     Object.keys(object).forEach((element) => {
-      let value = prompt(`${element} is: `);
-      object[element] = value;
+      if (element == "_id") {
+        object[element] = id;
+      } else {
+        let value = prompt(`${element} is: `);
+        object[element] = value;
+      }
     });
 
     // console.log(object);
     registers[atribute].push(object);
 
     var jsonContent = JSON.stringify(registers);
-    console.log(jsonContent);
 
     fs.writeFileSync(registersPath, jsonContent, "utf8", function (err) {
       if (err) {
@@ -163,16 +176,22 @@ function crudManager(input, content) {
   }
 
   if (input === "r") {
+    var idFound = false;
     var _id = prompt("Id of search: ");
 
     registers[atribute].forEach((element) => {
-      if (element._id === _id) {
+      if (element._id == _id) {
         console.log(element);
+        idFound = true;
       }
     });
+    if (idFound == false) {
+      console.log(`Element with id ${_id} doesnt exist.`);
+    }
+
     prompt("Press enter to continue.");
   }
-
+  showScreenByName(actions[0].screenName);
   // const asdasd = prompt("WOWOW: ");
 }
 
