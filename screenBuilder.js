@@ -139,30 +139,45 @@ function crudManager(input, content) {
 
   let object = { _id: 0, ...structure };
 
-  if ((input = "c")) {
+  // function createRegister(input, object, element, registers, atribute) {}
+  //create logic
+  if (input === "c") {
     Object.keys(object).forEach((element) => {
       let value = prompt(`${element} is: `);
       object[element] = value;
     });
+
+    // console.log(object);
+    registers[atribute].push(object);
+
+    var jsonContent = JSON.stringify(registers);
+    console.log(jsonContent);
+
+    fs.writeFileSync(registersPath, jsonContent, "utf8", function (err) {
+      if (err) {
+        console.log("An error occured while writing JSON Object to File.");
+        return console.log(err);
+      }
+      console.log("JSON file has been saved.");
+    });
   }
-  // console.log(object);
-  registers[atribute].push(object);
 
-  var jsonContent = JSON.stringify(registers);
-  console.log(jsonContent);
+  if (input === "r") {
+    var _id = prompt("Id of search: ");
 
-  fs.writeFileSync(registersPath, jsonContent, "utf8", function (err) {
-    if (err) {
-      console.log("An error occured while writing JSON Object to File.");
-      return console.log(err);
-    }
-    console.log("JSON file has been saved.");
-  });
+    registers[atribute].forEach((element) => {
+      if (element._id === _id) {
+        console.log(element);
+      }
+    });
+    prompt("Press enter to continue.");
+  }
+
   // const asdasd = prompt("WOWOW: ");
 }
 
 // showScreenByName("crudPerson");
-showScreenByName("showWelcomeScreen");
+// showScreenByName("showWelcomeScreen");
 
 module.exports = function screenBuilder(activeScreenName) {
   showScreenByName(activeScreenName);

@@ -6,6 +6,7 @@
     { "_id": "123", "name": "s", "age": "asdf", "asd": "d" },
     { "_id": "22", "name": "ad", "age": "qq", "asd": "we" },
     { "_id": "12", "name": "2", "age": "23", "asd": "2" },
-    { "_id": "12", "name": "afdd", "age": "asdw", "asd": "we" }
+    { "_id": "12", "name": "afdd", "age": "asdw", "asd": "we" },
+    { "_id": "2", "name": "", "age": "d", "asd": "" }
   ]
 }

@@ -39,11 +39,6 @@
       "screenMessage": "Welcome to registration screen",
       "actions": [
         {
-          "name": "Show all registers",
-          "button": "s",
-          "screenName": "showRegisters"
-        },
-        {
           "name": "Crud of person",
           "button": "cp",
           "screenName": "crudPerson"
