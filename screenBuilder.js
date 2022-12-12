@@ -134,6 +134,18 @@ function showCrudScreen(screenToShow) {
   transferToScreen(actions, content);
 }
 
+function saveJson(registers) {
+  var jsonContent = JSON.stringify(registers);
+
+  fs.writeFileSync(registersPath, jsonContent, "utf8", function (err) {
+    if (err) {
+      console.log("An error occured while writing JSON Object to File.");
+      return console.log(err);
+    }
+    console.log("JSON file has been saved.");
+  });
+}
+
 function crudManager(input, content) {
   const { atribute } = content;
   const { structure } = content;
@@ -169,15 +181,7 @@ function crudManager(input, content) {
 
     registers[atribute].push(object);
 
-    var jsonContent = JSON.stringify(registers);
-
-    fs.writeFileSync(registersPath, jsonContent, "utf8", function (err) {
-      if (err) {
-        console.log("An error occured while writing JSON Object to File.");
-        return console.log(err);
-      }
-      console.log("JSON file has been saved.");
-    });
+    saveJson(registers);
   }
 
   if (input === "r") {
@@ -195,6 +199,52 @@ function crudManager(input, content) {
     }
 
     prompt("Press enter to continue.");
+  }
+
+  if (input === "u") {
+    var _id = prompt("Id to modify: ");
+    var element = null;
+
+    registers[atribute].forEach((e) => {
+      if (e._id == _id) {
+        element = e;
+        registers[atribute].pop(e);
+      }
+    });
+    if (element) {
+      Object.keys(element).forEach((e) => {
+        if (e != "_id") {
+          let value = prompt(`${e} is: `);
+          element[e] = value;
+        }
+      });
+      registers[atribute].push(element);
+    } else {
+      console.log("Id is not valid. Press any key.");
+      prompt();
+    }
+
+    saveJson(registers);
+  }
+
+  if (input === "d") {
+    var _id = prompt("Id to delete: ");
+    var element = null;
+    var elementDeleted = false;
+
+    registers[atribute].forEach((e) => {
+      if (e._id == _id) {
+        element = e;
+        registers[atribute].pop(e);
+        saveJson(registers);
+        elementDeleted = true;
+      }
+    });
+
+    if (!elementDeleted) {
+      console.log("Id does not exist. Press any key.");
+      prompt();
+    }
   }
 
   //Show next screen

@@ -78,9 +78,7 @@
       "atribute": "person",
       "structure": {
         "_id": 0,
-        "name": "name",
-        "age": "age",
-        "asd": "s"
+        "name": "name"
       },
       "actions": [
         {
