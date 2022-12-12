@@ -160,6 +160,12 @@ function crudManager(input, content) {
     console.log("Check if register.json exists and configured.");
   }
 
+  //Add array of this type of attribute to JSON
+  if (!registers[atribute]) {
+    registers[testVar] = [];
+  }
+
+  saveJson(registers);
   let object = { _id: 0, ...structure };
 
   if (input === "c") {
