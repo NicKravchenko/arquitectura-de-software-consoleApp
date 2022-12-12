@@ -62,6 +62,7 @@ function transferToScreen(actions, content) {
   let crudButtons = [];
   showOptions(actions);
 
+  //Detect available buttons of crud
   actions.forEach((element) => {
     if (["c", "r", "u", "d"].includes(element.button)) {
       crudButtons.push(element.button);
@@ -149,15 +150,14 @@ function crudManager(input, content) {
 
   let object = { _id: 0, ...structure };
 
-  registers[atribute].forEach((element) => {
-    if (element._id + 1 > id) {
-      id = element._id + 1;
-    }
-  });
-
-  // function createRegister(input, object, element, registers, atribute) {}
-  //create logic
   if (input === "c") {
+    //Generate new ID
+    registers[atribute].forEach((element) => {
+      if (element._id + 1 > id) {
+        id = element._id + 1;
+      }
+    });
+
     Object.keys(object).forEach((element) => {
       if (element == "_id") {
         object[element] = id;
@@ -167,7 +167,6 @@ function crudManager(input, content) {
       }
     });
 
-    // console.log(object);
     registers[atribute].push(object);
 
     var jsonContent = JSON.stringify(registers);
@@ -197,8 +196,13 @@ function crudManager(input, content) {
 
     prompt("Press enter to continue.");
   }
-  showScreenByName(actions[0].screenName);
-  // const asdasd = prompt("WOWOW: ");
+
+  //Show next screen
+  actions.forEach((element) => {
+    if (element.button == input) {
+      showScreenByName(element.screenName);
+    }
+  });
 }
 
 // showScreenByName("crudPerson");
