@@ -152,7 +152,7 @@ function crudManager(input, content) {
   const { actions } = content;
 
   var rawdataReg = fs.readFileSync(registersPath);
-  let id = -1;
+  let id = 0;
 
   try {
     registers = JSON.parse(rawdataReg);
@@ -162,7 +162,7 @@ function crudManager(input, content) {
 
   //Add array of this type of attribute to JSON
   if (!registers[atribute]) {
-    registers[testVar] = [];
+    registers[atribute] = [];
   }
 
   saveJson(registers);

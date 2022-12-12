@@ -52,25 +52,6 @@
     }
   },
   {
-    "screenName": "showRegisters",
-    "type": "get",
-    "content": {
-      "screenMessage": "Show registers:",
-      "actions": [
-        {
-          "name": "Back",
-          "button": "b",
-          "screenName": "showWelcomeScreen"
-        },
-        {
-          "name": "Quit",
-          "button": "q",
-          "screenName": ""
-        }
-      ]
-    }
-  },
-  {
     "screenName": "crudPerson",
     "type": "crud",
     "content": {
