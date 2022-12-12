@@ -59,12 +59,18 @@ function exitProgram() {
 
 function transferToScreen(actions, content) {
   let screenFound = false;
-
+  let crudButtons = [];
   showOptions(actions);
-  console.log(actions[0].button);
+
+  actions.forEach((element) => {
+    if (["c", "r", "u", "d"].includes(element.button)) {
+      crudButtons.push(element.button);
+    }
+  });
+
   const input = prompt("Screen: ");
 
-  if (["c", "r", "u", "d"].includes(input)) {
+  if (crudButtons.includes(input)) {
     crudManager(input, content);
     return;
   }
