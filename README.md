@@ -52,7 +52,7 @@ There are a few important things to have in mind:
 To use a library you need to install npm package and then to use it and call screen builder.
 
 ```jsx
-const sh = require("./index");
+const sh = require("arquitectura-de-software-consoleapp");
 
 sh.screenBuilder("showWelcomeScreen");
 ```
