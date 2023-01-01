@@ -5,7 +5,8 @@ const extentions = require("./extentions");
 var rawdataConf = fs.readFileSync(`${__dirname}/config.json`);
 var config = JSON.parse(rawdataConf);
 
-const registersPath = `${__dirname}/registers.json`;
+const registersPath = extentions.returnPathForRegisters();
+
 
 function getScreenToShow(screenToShowName) {
   const conf = config;

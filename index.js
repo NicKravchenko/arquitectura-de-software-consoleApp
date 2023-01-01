@@ -24,7 +24,8 @@ module.exports.setBackgroundColor = (colorName) => {
   console.log("Background color changed");
 };
 
-module.exports.changeJSONLocation = (location) => {
+module.exports.changeRegisterJsonLocation = (location) => {
+  extentions.changeRegisterJsonLocation(location);
   console.log("Json location has been change");
 };
 

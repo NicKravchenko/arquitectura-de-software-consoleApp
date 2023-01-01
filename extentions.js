@@ -11,11 +11,38 @@ const colors = require(`${__dirname}/colors.js`);
 const configTextColor = extentionsconfig.textColor;
 const configBackgroundColor = extentionsconfig.bgColor;
 
-let registersPath = `${__dirname}/registers.json`;
+let registersPath ;
+let rawdataConf;
+let config
 
 const fgColors = colors.fg;
 const bgColors = colors.bg;
 
+if(extentionsconfig.jsonLocation == "default") registersPath = `${__dirname}/registers.json`;
+else registersPath = extentionsconfig.jsonLocation + '/registers.json'
+
+
+module.exports.returnPathForRegisters = () => {
+    var data = {}
+    try {
+        if (!fs.existsSync(registersPath)) {
+            console.log(registersPath)
+            fs.writeFileSync(registersPath, JSON.stringify(data) , "utf8", function (err) {
+                if (err) {
+                  console.log("An error occured while writing JSON Object to File.");
+                  return console.log(err);
+                }
+                console.log("JSON file has been created.");
+              });
+        }
+        rawdataConf = fs.readFileSync(registersPath);
+        config = JSON.parse(rawdataConf); 
+    } catch (error) {
+        console.log(error)
+    }
+
+    return registersPath    
+};
 
 module.exports.colorTextAndBG = () => {
     let textColor;
@@ -79,3 +106,16 @@ module.exports.changeBackgroundColor = (bgColor) => {
     console.log("JSON file has been saved.");
   });
 };
+
+module.exports.changeRegisterJsonLocation = (location) => {
+    extentionsconfig.jsonLocation = String(location).toLowerCase();
+  
+    var jsonContent = JSON.stringify(extentionsconfig);
+    fs.writeFileSync(extentionsconfigPath, jsonContent, "utf8", function (err) {
+      if (err) {
+        console.log("An error occured while writing JSON Object to File.");
+        return console.log(err);
+      }
+      console.log("JSON file has been saved.");
+    });
+  };
