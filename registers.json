@@ -1,1 +1,4 @@
-{}
+{
+  "person": [{ "_id": 0, "name": "Nikita" }],
+  "materia": [{ "_id": 0, "name": "Ing de software", "carrera": "ids" }]
+}

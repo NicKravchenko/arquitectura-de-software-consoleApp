@@ -1,5 +1,6 @@
 const fs = require("fs");
 const prompt = require("prompt-sync")();
+const extentions = require("./extentions");
 
 var rawdataConf = fs.readFileSync(`${__dirname}/config.json`);
 var config = JSON.parse(rawdataConf);
@@ -22,6 +23,7 @@ function getScreenToShow(screenToShowName) {
 
 function showScreenByName(screenToShowName) {
   console.log("\033[2J");
+  extentions.colorTextAndBG();
   const screenToShow = getScreenToShow(screenToShowName);
 
   const { type } = screenToShow;
@@ -43,10 +45,12 @@ function showScreenByName(screenToShowName) {
 function showOptions(actions) {
   console.log("Go to next screen:");
 
+  extentions.resetTextAndBG();
   //Show possible actions
   actions.forEach((element) => {
     console.log(element);
   });
+  extentions.colorTextAndBG();
 }
 
 function exitProgram() {

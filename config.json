@@ -36,7 +36,7 @@
     "screenName": "showWelcomeScreen",
     "type": "info",
     "content": {
-      "screenMessage": "Welcome to registration screen",
+      "screenMessage": "Welcome to welcome screen",
       "actions": [
         {
           "name": "Crud of person",
@@ -47,6 +47,11 @@
           "name": "Quit",
           "button": "q",
           "screenName": ""
+        },
+        {
+          "name": "Crud materias",
+          "button": "cm",
+          "screenName": "crudMaterias"
         }
       ]
     }
@@ -59,7 +64,8 @@
       "atribute": "person",
       "structure": {
         "_id": 0,
-        "name": "name"
+        "name": "name",
+        "age": 0
       },
       "actions": [
         {
@@ -80,6 +86,41 @@
         {
           "name": "Delete",
           "button": "d",
+          "screenName": "crudPerson"
+        },
+        {
+          "name": "Back",
+          "button": "b",
+          "screenName": "showWelcomeScreen"
+        }
+      ]
+    }
+  },
+  {
+    "screenName": "crudMaterias",
+    "type": "crud",
+    "content": {
+      "screenMessage": "CRUD materias screen",
+      "atribute": "materia",
+      "structure": {
+        "_id": 0,
+        "name": "name",
+        "carrera": "ids"
+      },
+      "actions": [
+        {
+          "name": "Create",
+          "button": "c",
+          "screenName": "showWelcomeScreen"
+        },
+        {
+          "name": "Read",
+          "button": "r",
+          "screenName": "crudPerson"
+        },
+        {
+          "name": "Update",
+          "button": "u",
           "screenName": "crudPerson"
         },
         {

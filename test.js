@@ -1,3 +1,4 @@
-const index = require("./index");
-
-index.screenBuilder("showWelcomeScreen");
+const sh = require("./index");
+// sh.setTextColor("white");
+// sh.setBackgroundColor("default");
+sh.screenBuilder("showWelcomeScreen");
