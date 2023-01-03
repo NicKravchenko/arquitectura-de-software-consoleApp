@@ -30,5 +30,6 @@ module.exports.changeRegisterJsonLocation = (location) => {
 };
 
 module.exports.enableQuitScreenMessage = (doEnable) => {
+  extentions.changeShowQuitScreen(doEnable);
   console.log("Quit screen has been enabled to show");
 };

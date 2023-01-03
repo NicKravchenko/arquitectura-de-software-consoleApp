@@ -7,7 +7,6 @@ var config = JSON.parse(rawdataConf);
 
 const registersPath = extentions.returnPathForRegisters();
 
-
 function getScreenToShow(screenToShowName) {
   const conf = config;
   let screenToShow = [];
@@ -56,7 +55,9 @@ function showOptions(actions) {
 
 function exitProgram() {
   process.on("exit", function (code) {
-    showScreenByName("endScreen");
+    if (extentions.returnShowQuitScreen()) {
+      showScreenByName("endScreen");
+    }
 
     return console.log(`Process to exit with code ${code}`);
   });
