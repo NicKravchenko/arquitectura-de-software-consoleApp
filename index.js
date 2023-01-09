@@ -2,11 +2,11 @@ const jsonChecker = require("./jsonChecker");
 const extentions = require("./extentions");
 const screenBuilder = require(`${__dirname}/screenBuilder`);
 
-module.exports.screenBuilder = (activeScreenName) => {
+module.exports.screenBuilder = (activeScreenName, ...cb) => {
   extentions.colorTextAndBG();
 
   if (jsonChecker()) {
-    screenBuilder(activeScreenName);
+    screenBuilder(activeScreenName, ...cb);
   }
 };
 
@@ -22,14 +22,4 @@ module.exports.setBackgroundColor = (colorName) => {
   extentions.colorTextAndBG();
 
   console.log("Background color changed");
-};
-
-module.exports.changeRegisterJsonLocation = (location) => {
-  extentions.changeRegisterJsonLocation(location);
-  console.log("Json location has been change");
-};
-
-module.exports.enableQuitScreenMessage = (doEnable) => {
-  extentions.changeShowQuitScreen(doEnable);
-  console.log("Quit screen has been enabled to show");
 };

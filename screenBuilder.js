@@ -5,7 +5,7 @@ const extentions = require("./extentions");
 var rawdataConf = fs.readFileSync(`${__dirname}/config.json`);
 var config = JSON.parse(rawdataConf);
 
-const registersPath = extentions.returnPathForRegisters();
+const registersPath = `${__dirname}/registers.json`;
 
 function getScreenToShow(screenToShowName) {
   const conf = config;
@@ -21,52 +21,59 @@ function getScreenToShow(screenToShowName) {
   return screenToShow;
 }
 
-function showScreenByName(screenToShowName) {
-  console.log("\033[2J");
+function showScreenByName(screenToShowName, ...cb) {
   extentions.colorTextAndBG();
   const screenToShow = getScreenToShow(screenToShowName);
 
   const { type } = screenToShow;
 
   if (type === "info") {
-    showInfoScreen(screenToShow);
+    showScreen(screenToShow, ...cb);
     return;
   }
   if (type === "get") {
-    showGetScreen(screenToShow);
+    showScreen(screenToShow, ...cb);
     return;
   }
   if (type === "crud") {
-    showCrudScreen(screenToShow);
+    showScreen(screenToShow, ...cb);
     return;
   }
 }
 
-function showOptions(actions) {
-  console.log("Go to next screen:");
+function showOptions(actions, ...cb) {
+  const funcs = [];
 
-  extentions.resetTextAndBG();
-  //Show possible actions
-  actions.forEach((element) => {
-    console.log(element);
+  cb.forEach((element) => {
+    funcs.push(element.name);
   });
-  extentions.colorTextAndBG();
+
+  if (funcs.includes("setOptionsShowing")) {
+    cb[funcs.indexOf("setOptionsShowing")](actions);
+  } else {
+    console.log("Go to next screen:");
+    extentions.resetTextAndBG();
+    //Show possible actions
+    actions.forEach((element) => {
+      console.log(element);
+    });
+    extentions.colorTextAndBG();
+  }
+  return actions;
 }
 
-function exitProgram() {
+function exitProgram(...cb) {
   process.on("exit", function (code) {
-    if (extentions.returnShowQuitScreen()) {
-      showScreenByName("endScreen");
-    }
+    showScreenByName("endScreen", ...cb);
 
     return console.log(`Process to exit with code ${code}`);
   });
 }
 
-function transferToScreen(actions, content) {
+function transferToScreen(actions, content, ...cb) {
   let screenFound = false;
   let crudButtons = [];
-  showOptions(actions);
+  showOptions(actions, ...cb);
 
   //Detect available buttons of crud
   actions.forEach((element) => {
@@ -78,86 +85,93 @@ function transferToScreen(actions, content) {
   const input = prompt("Screen: ");
 
   if (crudButtons.includes(input)) {
-    crudManager(input, content);
+    crudManager(input, content, ...cb);
     return;
   }
 
   //Exit if pressed q
   if (input == "q") {
-    exitProgram();
+    exitProgram(...cb);
     return;
   } else {
     //Call screen
-    actions.forEach((element) => {
-      console.log(element);
+    acts = showOptions(actions, ...cb);
 
+    actions.forEach((element) => {
       if (element.button == input) {
         nextScreenToShowName = element.screenName;
-        console.log(nextScreenToShowName);
-        showScreenByName(nextScreenToShowName);
+        showScreenByName(nextScreenToShowName, ...cb);
         screenFound = true;
         return;
       }
     });
 
     if (!screenFound) {
-      showScreenByName("show404Screen");
+      showScreenByName("show404Screen", ...cb);
       return;
     }
   }
 }
 
-function showInfoScreen(screenToShow) {
+function showScreen(screenToShow, ...cb) {
   //Define screen parts
   const { content } = screenToShow;
   const { screenMessage } = content;
   const { actions } = content;
 
-  console.log(screenMessage);
+  const funcs = [];
 
-  transferToScreen(actions, content);
-}
-
-function showGetScreen(screenToShow) {
-  //Define screen parts
-  const { content } = screenToShow;
-  const { screenMessage } = content;
-  const { actions } = content;
-
-  console.log(screenMessage);
-
-  transferToScreen(actions, content);
-}
-
-function showCrudScreen(screenToShow) {
-  //Define screen parts
-  const { content } = screenToShow;
-  const { screenMessage } = content;
-  const { actions } = content;
-
-  console.log(screenMessage);
-
-  transferToScreen(actions, content);
-}
-
-function saveJson(registers) {
-  var jsonContent = JSON.stringify(registers);
-
-  fs.writeFileSync(registersPath, jsonContent, "utf8", function (err) {
-    if (err) {
-      console.log("An error occured while writing JSON Object to File.");
-      return console.log(err);
-    }
-    console.log("JSON file has been saved.");
+  cb.forEach((element) => {
+    funcs.push(element.name);
   });
+
+  if (funcs.includes("setHeader")) {
+    cb[funcs.indexOf("setHeader")](screenMessage);
+  } else {
+    console.log("\033[2J");
+    console.log(screenMessage);
+  }
+  transferToScreen(actions, content, ...cb);
 }
 
-function crudManager(input, content) {
+function saveJson(registers, ...cb) {
+  funcs = [];
+
+  cb.forEach((element) => {
+    funcs.push(element.name);
+  });
+
+  if (funcs.includes("setStorage")) {
+    cb[funcs.indexOf("setStorage")](registers);
+  } else {
+    var jsonContent = JSON.stringify(registers);
+
+    fs.writeFileSync(registersPath, jsonContent, "utf8", function (err) {
+      if (err) {
+        console.log("An error occured while writing JSON Object to File.");
+        return console.log(err);
+      }
+      console.log("JSON file has been saved.");
+    });
+  }
+}
+
+function crudManager(input, content, ...cb) {
   const { atribute } = content;
   const { structure } = content;
   const { actions } = content;
+  var rawdataReg = "";
+  funcs = [];
 
-  var rawdataReg = fs.readFileSync(registersPath);
+  cb.forEach((element) => {
+    funcs.push(element.name);
+  });
+  if (funcs.includes("setStorage")) {
+    rawdataReg = fs.readFileSync(cb[funcs.indexOf("setStorage")]());
+  } else {
+    rawdataReg = fs.readFileSync(registersPath);
+  }
+
   let id = 0;
 
   try {
@@ -171,7 +185,7 @@ function crudManager(input, content) {
     registers[atribute] = [];
   }
 
-  saveJson(registers);
+  saveJson(registers, ...cb);
   let object = { _id: 0, ...structure };
 
   if (input === "c") {
@@ -193,7 +207,7 @@ function crudManager(input, content) {
 
     registers[atribute].push(object);
 
-    saveJson(registers);
+    saveJson(registers, ...cb);
   }
 
   if (input === "r") {
@@ -236,7 +250,7 @@ function crudManager(input, content) {
       prompt();
     }
 
-    saveJson(registers);
+    saveJson(registers, ...cb);
   }
 
   if (input === "d") {
@@ -248,7 +262,7 @@ function crudManager(input, content) {
       if (e._id == _id) {
         element = e;
         registers[atribute].pop(e);
-        saveJson(registers);
+        saveJson(registers, ...cb);
         elementDeleted = true;
       }
     });
@@ -262,7 +276,7 @@ function crudManager(input, content) {
   //Show next screen
   actions.forEach((element) => {
     if (element.button == input) {
-      showScreenByName(element.screenName);
+      showScreenByName(element.screenName, ...cb);
     }
   });
 }
@@ -270,6 +284,17 @@ function crudManager(input, content) {
 // showScreenByName("crudPerson");
 // showScreenByName("showWelcomeScreen");
 
-module.exports = function screenBuilder(activeScreenName) {
-  showScreenByName(activeScreenName);
+module.exports = function screenBuilder(activeScreenName, ...cb) {
+  funcs = [];
+  cb.forEach((element) => {
+    funcs.push(element.name);
+  });
+  if (funcs.includes("setStorage")) {
+    console.log(cb[funcs.indexOf("setStorage")]());
+    extentions.createArchiveForRegistersIfNotExists(
+      cb[funcs.indexOf("setStorage")]()
+    );
+  }
+
+  showScreenByName(activeScreenName, ...cb);
 };

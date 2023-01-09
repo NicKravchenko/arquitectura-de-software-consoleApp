@@ -140,3 +140,25 @@ module.exports.changeShowQuitScreen = (toShow) => {
     console.log("JSON file has been saved.");
   });
 };
+
+module.exports.createArchiveForRegistersIfNotExists = (pathRegs) => {
+  var data = {};
+  try {
+    if (!fs.existsSync(pathRegs)) {
+      fs.writeFileSync(
+        pathRegs,
+        JSON.stringify(data),
+        "utf8",
+        function (err) {
+          if (err) {
+            console.log("An error occured while writing JSON Object to File.");
+            return console.log(err);
+          }
+          console.log("JSON file has been created.");
+        }
+      );
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};

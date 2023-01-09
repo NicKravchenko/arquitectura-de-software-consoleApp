@@ -1,4 +1,1 @@
-{
-  "person": [{ "_id": 0, "name": "Nikita" }],
-  "materia": [{ "_id": 0, "name": "Ing de software", "carrera": "ids" }]
-}
+{"person":[{"_id":0,"name":"Nikita"},{"_id":1,"name":"asdf","age":"asdf"},{"_id":2,"name":"asdf","age":"asdf"},{"_id":3,"name":"Nikita","age":"23"},{"_id":4,"name":"Daniel","age":"33"}],"materia":[{"_id":0,"name":"Ing de software","carrera":"ids"},{"_id":1,"name":"Metal","carrera":"a"}]}
