@@ -63,3 +63,38 @@ Screen Builder recieves name of initial screen as a parameter, so, you need to w
 ## JSON Checker
 
 Before first screen will be shown, library checks if JSON file is all right
+
+## Extentions
+
+Screen handler has 3 points of extentions, using which you can customize your user experience and modify a place where your JSON is stored, or even to save it in another format!  
+
+If we want to execute our extention with no modifications we just call our screen builder, sending there the name of the screen  
+
+```jsx
+screenBuilder("showWelcomeScreen");
+```  
+
+It changes if it's necessary to modify behaviour of an extention we need to pass new functions as a callback to our package. We need to keep in mind that naming of funtions is vital to make it work and for now we have 3 extentions:  
+
+```jsx
+sh.screenBuilder(
+  "showWelcomeScreen",
+  function setHeader(screenMessage) {},
+  function setOptionsShowing(actions) {},
+  function setStorage(registers) {}
+);
+```  
+
+Those are 3 functions we can pass into our screen builder.  
+```jsx
+setHeader(screenMessage) {}  
+```
+It recieves a screen message which can be showed as user wants.  
+```jsx
+setOptionsShowing(actions) {}  
+```
+It recieves actions which can be decomposed and shown as user wants.  
+```jsx
+setStorage(registers) {} 
+```
+It recieves a JSON which by default is saved in the package directory, but it can be rewritten or even saved in other format.
