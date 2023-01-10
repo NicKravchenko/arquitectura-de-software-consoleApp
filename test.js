@@ -1,10 +1,6 @@
 const sh = require("./index");
 const fs = require("fs");
 
-// sh.setTextColor("red");
-// sh.setBackgroundColor("default");
-// sh.changeRegisterJsonLocation('default')
-// sh.changeRegisterJsonLocation('E:\\Books')
 const prompt = require("prompt-sync")();
 
 
@@ -34,4 +30,11 @@ sh.screenBuilder(
       console.log("JSON file has been saved.");
     });
   }
+);
+
+sh.screenBuilder(
+  "showWelcomeScreen",
+  function setHeader(screenMessage) {},
+  function setOptionsShowing(actions) {},
+  function setStorage(registers) {}
 );
