@@ -97,4 +97,5 @@ It recieves actions which can be decomposed and shown as user wants.
 ```jsx
 setStorage(registers) {} 
 ```
+
 It recieves a JSON which by default is saved in the package directory, but it can be rewritten or even saved in other format.
