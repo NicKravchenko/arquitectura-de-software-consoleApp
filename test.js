@@ -1,8 +1,7 @@
 const sh = require("./index");
 const fs = require("fs");
 
-const prompt = require("prompt-sync")();
-
+sh.setScreenJsonLoc();
 
 sh.screenBuilder(
   "showWelcomeScreen",
@@ -21,7 +20,7 @@ sh.screenBuilder(
     var jsonContent = JSON.stringify(registers);
     const registersPath = "E:/ChromeDownloads/config.json";
 
-    if (!registers) return registersPath
+    if (!registers) return registersPath;
     fs.writeFileSync(registersPath, jsonContent, "utf8", function (err) {
       if (err) {
         console.log("An error occured while writing JSON Object to File.");
@@ -30,11 +29,4 @@ sh.screenBuilder(
       console.log("JSON file has been saved.");
     });
   }
-);
-
-sh.screenBuilder(
-  "showWelcomeScreen",
-  function setHeader(screenMessage) {},
-  function setOptionsShowing(actions) {},
-  function setStorage(registers) {}
 );

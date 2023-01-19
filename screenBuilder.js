@@ -2,8 +2,8 @@ const fs = require("fs");
 const prompt = require("prompt-sync")();
 const extentions = require("./extentions");
 
-var rawdataConf = fs.readFileSync(`${__dirname}/config.json`);
-var config = JSON.parse(rawdataConf);
+var rawdataConf;
+var config;
 
 const registersPath = `${__dirname}/registers.json`;
 
@@ -284,7 +284,7 @@ function crudManager(input, content, ...cb) {
 // showScreenByName("crudPerson");
 // showScreenByName("showWelcomeScreen");
 
-module.exports = function screenBuilder(activeScreenName, ...cb) {
+module.exports.build = function screenBuilder(activeScreenName, ...cb) {
   funcs = [];
   cb.forEach((element) => {
     funcs.push(element.name);
@@ -297,4 +297,13 @@ module.exports = function screenBuilder(activeScreenName, ...cb) {
   }
 
   showScreenByName(activeScreenName, ...cb);
+};
+
+module.exports.setScreenJsonLoc = (setScreenJsonLoc) => {
+  if (setScreenJsonLoc) {
+    rawdataConf = fs.readFileSync(`${setScreenJsonLoc}`);
+  } else {
+    rawdataConf = fs.readFileSync(`${__dirname}/config.json`);
+  }
+  config = JSON.parse(rawdataConf);
 };

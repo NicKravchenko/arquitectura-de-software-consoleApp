@@ -2,7 +2,8 @@ const fs = require("fs");
 const { callbackify } = require("util");
 const prompt = require("prompt-sync")();
 
-var rawdataConf = fs.readFileSync(`${__dirname}/config.json`);
+var rawdataConf;
+
 // var config = JSON.parse(rawdataConf);
 
 function exitProgram() {
@@ -12,6 +13,8 @@ function exitProgram() {
 }
 
 function isJsonString() {
+  console.log(rawdataConf);
+
   try {
     config = JSON.parse(rawdataConf);
   } catch (e) {
@@ -22,7 +25,18 @@ function isJsonString() {
   return true;
 }
 
-module.exports = () => {
+module.exports.setScreenJsonLoc = (setScreenJsonLoc) => {
+  // window.rawdataConf = setScreenJsonLoc;
+  if (setScreenJsonLoc) {
+    rawdataConf = fs.readFileSync(`${setScreenJsonLoc}`);
+  } else {
+    rawdataConf = fs.readFileSync(`${__dirname}/config.json`);
+  }
+};
+
+module.exports.check = () => {
+  console.log(rawdataConf);
+
   const isJsonValid = isJsonString();
   console.log("\033[2J");
 
