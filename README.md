@@ -57,7 +57,13 @@ const sh = require("arquitectura-de-software-consoleapp");
 sh.screenBuilder("showWelcomeScreen");
 ```
 
-Screen Builder recieves name of initial screen as a parameter, so, you need to write a correct name to make it work.
+Screen Builder recieves name of initial screen as a parameter, so, you need to write a correct name to make it work. 
+ 
+To create screens you can use the structure of JSON which was shown above, create your JSON file wherever you want and specify route to this with:
+
+```jsx
+sh.setScreenJsonLoc("D:\\config.json"); //Example
+```
 
 
 ## JSON Checker
